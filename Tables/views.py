@@ -3,5 +3,5 @@ from .models import post_table
 
 
 def mainpage(request):
-    posts = post_table.objects.get(id=1)
+    posts = post_table.objects.all()
     return render(request, 'index.html', {'post':posts})
