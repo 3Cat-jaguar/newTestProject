@@ -79,7 +79,8 @@ WSGI_APPLICATION = 'newTestProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = secret_setting.DATABASES
+DATABASES = 'mysql://***REMOVED***:***REMOVED***@dcrhg4kh56j13bnu.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/***REMOVED***'
+#secret_setting.DATABASES
 # {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
