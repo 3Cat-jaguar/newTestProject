@@ -6,16 +6,17 @@
     {% for post1 in post %}
         <div>
             <h1>
-                body : Hello World
+                body : Hello World<br>
 
-                {{ post1.title }}
-<!--
-                <small>(created at : {{ post1.created_at }}, updated at : {{ post1.updated_at }})</small>
--->
+                {{ post1.title }}<br>
+
             </h1>
-<!--
-        <p>{{ post1.content }}</p>
--->
+            <h3>
+                (created at : {{ post1.created_at }}, updated at : {{ post1.updated_at }})
+            </h3>
+
+        <p>content : {{ post1.content }}</p>
+
         </div>
     {% endfor %}
   </body>
