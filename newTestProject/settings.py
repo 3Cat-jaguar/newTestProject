@@ -137,4 +137,4 @@ MEDIA_URL = '/media/'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = '2621440'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
