@@ -3,6 +3,15 @@
     <title>Hello World</title>
   </head>
   <body>
-    body : Hello World
+    {% for post1 in post %}
+        body : Hello World
+        <div>
+            <h1>
+                {{ post1.title }}
+                <small>(created at : {{ post1.created_at }}, updated at : {{ post1.updated_at }})</small>
+            </h1>
+        <p>{{ post1.content }}</p>
+        </div>
+    {% endfor %}
   </body>
 </html>
