@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)(7dr*(567xbl*u$goyli9v+1j@c7xeflm0j2($n3@wppgy=%4
 DEBUG = False
 #DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com'] # << 이 부분이 있어야 heroku 서버랑 연결된다.
 #ALLOWED_HOSTS = []
 
 
