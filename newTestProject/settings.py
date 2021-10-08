@@ -80,8 +80,8 @@ WSGI_APPLICATION = 'newTestProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = 'mysql://qdvsa9lmzfokhad0:j195fsld8bk16a2z@dcrhg4kh56j13bnu.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/pqmywalzuwc6it8y'
-#secret_setting.DATABASES
+DATABASES = secret_setting.DATABASES
+# 'mysql://qdvsa9lmzfokhad0:j195fsld8bk16a2z@dcrhg4kh56j13bnu.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/pqmywalzuwc6it8y'
 # {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
