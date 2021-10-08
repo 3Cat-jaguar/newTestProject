@@ -28,6 +28,7 @@ SECRET_KEY = 'django-insecure-)(7dr*(567xbl*u$goyli9v+1j@c7xeflm0j2($n3@wppgy=%4
 DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -109,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko'
 
 TIME_ZONE = 'Asia/Seoul'
 
