@@ -135,3 +135,5 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 MEDIA_URL = '/media/'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = '2621440'
+
+django_heroku.settings(locals())
