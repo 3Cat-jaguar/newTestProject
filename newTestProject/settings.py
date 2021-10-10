@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 import secret_setting
-#import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)(7dr*(567xbl*u$goyli9v+1j@c7xeflm0j2($n3@wppgy=%4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+#DEBUG = False
 #DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com'] # << 이 부분이 있어야 heroku 서버랑 연결된다.
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-#    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,7 +82,6 @@ WSGI_APPLICATION = 'newTestProject.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = secret_setting.DATABASES
-# 'mysql://qdvsa9lmzfokhad0:j195fsld8bk16a2z@dcrhg4kh56j13bnu.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/pqmywalzuwc6it8y'
 # {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -139,4 +139,5 @@ MEDIA_URL = '/media/'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = '2621440'
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
+
