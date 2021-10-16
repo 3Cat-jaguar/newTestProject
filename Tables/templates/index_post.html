@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Hello World</title>
+  </head>
+  <body>
+  <h1> test start</h1>
+    {% for post1 in post %}
+        <div>
+            <h1>
+                id : {{ post1.id }}<br>
+                body : Hello World<br>
+
+                {{ post1.title }}<br>
+
+            </h1>
+            <h3>
+                (created at : {{ post1.created_at }}, updated at : {{ post1.updated_at }})
+            </h3>
+
+        <p>content : {{ post1.content }}</p>
+        <p>tag : {{ post1.tag }}</p><br>
+        </div>
+    {% endfor %}
+  <h1>end test</h1>
+  </body>
+</html>

@@ -4,21 +4,22 @@
   </head>
   <body>
   <h1> test start</h1>
-    {% for post1 in post %}
+    {% for data in apidata %}
         <div>
             <h1>
-                id : {{ post1.id }}<br>
+                id : {{ data.id }}<br>
                 body : Hello World<br>
 
-                {{ post1.title }}<br>
+                {{ data.item_name }}<br>
 
             </h1>
             <h3>
-                (created at : {{ post1.created_at }}, updated at : {{ post1.updated_at }})
+                {{ data.date }} 가격 : {{ data.today_price }} / {{ data.unit }}<br>
+                평균 가격 : {{ data.average_price }} / {{ data.unit }}
             </h3>
 
-        <p>content : {{ post1.content }}</p>
-        <p>tag : {{ post1.tag }}</p><br>
+        <p>content : {{ data.kind_name }}</p>
+        <p>tag : {{ data.rank }}</p><br>
         </div>
     {% endfor %}
   <h1>end test</h1>
