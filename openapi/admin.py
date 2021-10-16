@@ -6,6 +6,7 @@ from .models import api_table
 class ApiTableAdmin(admin.ModelAdmin):
     list_display = (
         'id',
+        'category',
         'item_name',
         'kind_name',
         'rank',
