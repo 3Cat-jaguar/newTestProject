@@ -21,7 +21,11 @@ def parsing(request):
     jsondata = apidata.json()
     for item in jsondata['data']['item']:
         item_name = item['item_name']
-        print(item_name + item['unit'])
+        #print(item_name + item['unit'])
+        api_table.objects.create(category = category, item_name = item_name,
+                                 kind_name = item['kind_name'], rank = item['rank'],
+                                 unit = item['unit'], date = item['day1'],
+                                 today_price = item['dpr1'], average_price = item['dpr7'])
     context = {
         'apidata':api_table.objects.all()
     }
