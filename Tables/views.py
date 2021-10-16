@@ -5,7 +5,7 @@ import requests
 
 
 def parsing(request):
-    date = str('2021-10-01')
+    date = str('2021-10-05')
     category = str(100)
     requesturl = "https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList"
     requesturl += "&p_product_cls_code=01"
@@ -19,13 +19,25 @@ def parsing(request):
 
     apidata = requests.get(requesturl)
     jsondata = apidata.json()
-    for item in jsondata['data']['item']:
-        item_name = item['item_name']
-        #print(item_name + item['unit'])
-        api_table.objects.create(category = category, item_name = item_name,
-                                 kind_name = item['kind_name'], rank = item['rank'],
-                                 unit = item['unit'], date = item['day1'],
-                                 today_price = item['dpr1'], average_price = item['dpr7'])
+    if (api_table.objects.all().exists()==False):
+        for item in jsondata['data']['item']:
+            item_name = item['item_name']
+            #print(item_name + item['unit'])
+            api_table.objects.create(category = category, item_name = item_name,
+                                     kind_name = item['kind_name'], rank = item['rank'],
+                                     unit = item['unit'], date = item['day1'],
+                                     today_price = item['dpr1'], average_price = item['dpr7'])
+    elif (api_table.objects.all().first().date != jsondata['data']['item'][0]['day1']):
+        index = api_table.objects.all().first().id
+        for item in jsondata['data']['item']:
+            objects = api_table.objects.get(id=index)
+            objects.date = item['day1']
+            if (item['dpr1'] != '-'):
+                objects.today_price = item['dpr1']
+            objects.average_price = item['dpr7']
+            objects.save()
+            index += 1
+
     context = {
         'apidata':api_table.objects.all()
     }
