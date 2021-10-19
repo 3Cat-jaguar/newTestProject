@@ -4,6 +4,7 @@ from openapi.models import api_table
 import requests
 import datetime
 from datetime import datetime, date
+from django.db.models import Q
 
 
 def request_openapi_data(urldate, category):
@@ -100,7 +101,7 @@ def update_db(urldate, i):
 def parsing(request):
     todayyear = datetime.now().year
     todaymonth = datetime.now().month
-    todaydate = datetime.now().day - 1
+    todaydate = datetime.now().day
     todayweekday = str(date(todayyear, todaymonth, todaydate).strftime('%A'))
     print('today weekday : ' + todayweekday)
     urldate = str(todayyear) + '-' + str(todaymonth) + '-' + str(todaydate)
@@ -116,7 +117,8 @@ def parsing(request):
         i = 1
         while i < 5:
             # index = update_db(urldate, i, index)
-            update_db(urldate, i)
+            # update_db(urldate, i)
+            create_db(urldate, i)
             i += 1
         # objectslist = api_table.objects.filter(id=index)
         # while objectslist:
@@ -134,7 +136,7 @@ def parsing(request):
         #     index += 1
         #     objectslist = api_table.objects.filter(id=index)
     context = {
-        'apidata':api_table.objects.all().exclude(item_name='').order_by('id')
+        'apidata':api_table.objects.filter(Q(item_name__contains='캠벨') | Q(kind_name__contains='캠벨')).exclude(today_price='-').order_by('-date')
     }
     return render(request, 'index.html', context)
 
