@@ -82,30 +82,31 @@ def create_db(urldate, i):
 #     return index
 
 
-def update_db(urldate, i):
-    category = str(i * 100)
-    jsondata = request_openapi_data(urldate, category)
-    try:
-        itemdata = jsondata['data']['item']
-    except:
-        return
-    for item in itemdata:
-        objectslist = api_table.objects.filter(item_name=item['item_name'], kind_name=item['kind_name'], rank=item['rank'])
-        if objectslist:
-            print('데이터를 수정합니다')
-            objects = objectslist.first()
-            if (item['dpr1'] != '-'):
-                objects.today_price = item['dpr1']
-                objects.date = urldate
-            objects.average_price = item['dpr7']
-            objects.save()
-        elif item['dpr1'] != '-':
-            print('데이터를 추가합니다')
-            api_table.objects.create(category=category, item_name=item['item_name'],
-                                     kind_name=item['kind_name'], rank=item['rank'],
-                                     unit=item['unit'], date=urldate,
-                                     today_price=item['dpr1'], average_price=item['dpr7'])
-    return
+# def update_db(urldate, i):
+#     category = str(i * 100)
+#     jsondata = request_openapi_data(urldate, category)
+#     try:
+#         itemdata = jsondata['data']['item']
+#     except:
+#         print('this json has no data')
+#         return
+#     for item in itemdata:
+#         objectslist = api_table.objects.filter(item_name=item['item_name'], kind_name=item['kind_name'], rank=item['rank'])
+#         if objectslist:
+#             print('데이터를 수정합니다')
+#             objects = objectslist.first()
+#             if (item['dpr1'] != '-'):
+#                 objects.today_price = item['dpr1']
+#                 objects.date = urldate
+#             objects.average_price = item['dpr7']
+#             objects.save()
+#         elif item['dpr1'] != '-':
+#             print('데이터를 추가합니다')
+#             api_table.objects.create(category=category, item_name=item['item_name'],
+#                                      kind_name=item['kind_name'], rank=item['rank'],
+#                                      unit=item['unit'], date=urldate,
+#                                      today_price=item['dpr1'], average_price=item['dpr7'])
+#     return
 
 
 def parsing(request):
