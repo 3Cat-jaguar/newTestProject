@@ -8,18 +8,15 @@
         <div>
             <h1>
                 id : {{ data.id }}<br>
-                body : Hello World<br>
 
-                {{ data.item_name }}<br>
+                {{ data.item_name }} : {{ data.kind_name }}<br>
 
             </h1>
             <h3>
+                상품 등급 : {{ data.rank }}<br>
                 {{ data.date }} 가격 : {{ data.today_price }} / {{ data.unit }}<br>
                 평균 가격 : {{ data.average_price }} / {{ data.unit }}
             </h3>
-
-        <p>content : {{ data.kind_name }}</p>
-        <p>tag : {{ data.rank }}</p><br>
         </div>
     {% endfor %}
   <h1>end test</h1>
