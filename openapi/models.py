@@ -7,6 +7,6 @@ class api_table(models.Model):
     kind_name = models.CharField(max_length=30)
     rank = models.CharField(max_length=30)
     unit = models.CharField(max_length=30)
-    date = models.CharField(max_length=30)
-    today_price = models.CharField(max_length=30)
+    date = models.CharField(max_length=30) # create_date
+    today_price = models.CharField(max_length=30) # recent_price
     average_price = models.CharField(max_length=30)
