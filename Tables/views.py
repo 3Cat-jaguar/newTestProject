@@ -27,7 +27,13 @@ def request_openapi_data(urldate, category):
 def create_db(urldate, i):
     category = str(i * 100)
     jsondata = request_openapi_data(urldate, category)
-    for item in jsondata['data']['item']:
+    try:
+        itemdata = jsondata['data']['item']
+    except:
+        print('this json has no data')
+        return
+    for item in itemdata:
+    # for item in jsondata['data']['item']:
         # print(item_name + item['unit'])
         api_table.objects.create(category=category, item_name=item['item_name'],
                                  kind_name=item['kind_name'], rank=item['rank'],
@@ -79,7 +85,11 @@ def create_db(urldate, i):
 def update_db(urldate, i):
     category = str(i * 100)
     jsondata = request_openapi_data(urldate, category)
-    for item in jsondata['data']['item']:
+    try:
+        itemdata = jsondata['data']['item']
+    except:
+        return
+    for item in itemdata:
         objectslist = api_table.objects.filter(item_name=item['item_name'], kind_name=item['kind_name'], rank=item['rank'])
         if objectslist:
             print('데이터를 수정합니다')
@@ -101,7 +111,7 @@ def update_db(urldate, i):
 def parsing(request):
     todayyear = datetime.now().year
     todaymonth = datetime.now().month
-    todaydate = datetime.now().day
+    todaydate = datetime.now().day - 2
     todayweekday = str(date(todayyear, todaymonth, todaydate).strftime('%A'))
     print('today weekday : ' + todayweekday)
     urldate = str(todayyear) + '-' + str(todaymonth) + '-' + str(todaydate)
@@ -111,7 +121,8 @@ def parsing(request):
         while i < 5:
             create_db(urldate, i)
             i += 1
-    elif (api_table.objects.filter(date=urldate).first() is None) and (todayweekday != 'Sunday'):
+    # elif (api_table.objects.filter(date=urldate).first() is None) and (todayweekday != 'Sunday'):
+    elif (api_table.objects.filter(date=urldate).first() is None):
         # 일요일 외 nodata 가 나오는 다른 케이스도 찾아야함
         # index = api_table.objects.all().first().id
         i = 1
