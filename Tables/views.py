@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render
 #from .models import post_table
 from openapi.models import api_table
@@ -8,19 +10,31 @@ from django.db.models import Q
 
 
 def request_openapi_data(urldate, category):
-    requesturl = "https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList"
-    requesturl += "&p_product_cls_code=01"
-    requesturl += "&p_regday=" + urldate
-    requesturl += "&p_convert_kg_yn=N"
-    requesturl += "&p_item_category_code=" + category
-    requesturl += "&p_cert_key=111"
-    requesturl += "&p_cert_id=222"
-    requesturl += "&p_returntype=json"
-    print('request url : ' + str(requesturl))
+    payload = {
+        'action': 'dailyPriceByCategoryList',
+        'p_product_cls_code': '01',
+        'p_regday': urldate,
+        'p_convert_kg_yn': 'N',
+        'p_item_category_code': category,
+        'p_cert_key': os.environ['OPENAPI_KEY'],
+        'p_cert_id': os.environ['OPENAPI_ID'],
+        'p_returntype': 'json',
+    }
+    openapi_url = 'https://www.kamis.or.kr/service/price/xml.do'
+    # requesturl = "https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList"
+    # requesturl += "&p_product_cls_code=01"
+    # requesturl += "&p_regday=" + urldate
+    # requesturl += "&p_convert_kg_yn=N"
+    # requesturl += "&p_item_category_code=" + category
+    # requesturl += "&p_cert_key=111"
+    # requesturl += "&p_cert_id=222"
+    # requesturl += "&p_returntype=json"
+    r = requests.get(openapi_url, params=payload)
+    print('request url : ' + str(r.url))
 
-    apidata = requests.get(requesturl)
+    # apidata = requests.get(requesturl)
     # request 실패시 처리를 어떻게 할지?
-    jsondata = apidata.json()
+    jsondata = r.json()
     return jsondata
 
 
@@ -112,7 +126,7 @@ def create_db(urldate, i):
 def parsing(request):
     todayyear = datetime.now().year
     todaymonth = datetime.now().month
-    todaydate = datetime.now().day - 2
+    todaydate = datetime.now().day - 9
     todayweekday = str(date(todayyear, todaymonth, todaydate).strftime('%A'))
     print('today weekday : ' + todayweekday)
     urldate = str(todayyear) + '-' + str(todaymonth) + '-' + str(todaydate)
@@ -124,7 +138,7 @@ def parsing(request):
             i += 1
     # elif (api_table.objects.filter(date=urldate).first() is None) and (todayweekday != 'Sunday'):
     elif (api_table.objects.filter(date=urldate).first() is None):
-        # 일요일 외 nodata 가 나오는 다른 케이스도 찾아야함
+        # 일요일 외 nodata 가 나오는 다른 케이스도 찾아야함 -> 해결
         # index = api_table.objects.all().first().id
         i = 1
         while i < 5:
