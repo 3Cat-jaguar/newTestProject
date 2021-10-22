@@ -122,7 +122,6 @@ def create_db(urldate, i):
 
 
 def parsing(request):
-<<<<<<< HEAD
     # todayyear = datetime.now().year
     # todaymonth = datetime.now().month
     # todaydate = datetime.now().day
@@ -130,14 +129,12 @@ def parsing(request):
     # print('today weekday : ' + todayweekday)
     # urldate = str(todayyear) + '-' + str(todaymonth) + '-' + str(todaydate)
     urldate = datetime.now().date()
-=======
     todayyear = datetime.now().year
     todaymonth = datetime.now().month
     todaydate = datetime.now().day - 9
     todayweekday = str(date(todayyear, todaymonth, todaydate).strftime('%A'))
     print('today weekday : ' + todayweekday)
     urldate = str(todayyear) + '-' + str(todaymonth) + '-' + str(todaydate)
->>>>>>> c7f241e13ed46a372b85f4ccc6086d82f4459977
     print(urldate)
     if not api_table.objects.all().exists():
         i = 1
