@@ -14,6 +14,9 @@ class ApiTableAdmin(admin.ModelAdmin):
         'date',
         'today_price',
         'average_price',
+<<<<<<< HEAD
         'created_at',
+=======
+>>>>>>> c7f241e13ed46a372b85f4ccc6086d82f4459977
     )
 
