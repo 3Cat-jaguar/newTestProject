@@ -12,7 +12,8 @@ from Tables.views import create_db
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        urldate = datetime.now().date()
+        # urldate = datetime.now().date()
+        urldate = str(datetime.now().year) + '-' + str(datetime.now().month) + '-' + str(datetime.now().day - 1)
         print(urldate)
         create_db(urldate, 1)
             # i = 1
